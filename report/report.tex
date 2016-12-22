@@ -1,42 +1,19 @@
-% vim: set fenc=utf-8 ts=2 sw=2 sts=2 noet foldmethod=indent:
-\documentclass[a4paper,12pt]{article}
-\usepackage[T2A]{fontenc}
-\usepackage[english,russian]{babel}
-\usepackage{enumitem}
-\usepackage{array}
-\usepackage[colorlinks=true]{hyperref}
-\usepackage{listings}
-\usepackage[dvipsnames]{xcolor}
+\documentclass[a4paper]{article}
+\usepackage[14pt]{extsizes}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{setspace,amsmath}
+\usepackage{fancyvrb}
+\usepackage{graphicx}
+\graphicspath{{pictures/}}
+\DeclareGraphicsExtensions{.png,.jpg}
+%\DefineShortVerb{\|}
+%\usepackage[argument]{graphicx}
+%\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[left=20mm, top=15mm, right=15mm, bottom=15mm, nohead, footskip=10mm]{geometry} % настройки полей документа
 
-\usepackage{FiraMono}
-\usepackage{fontspec}
-\setmainfont{Liberation Serif}
 
-\usepackage{geometry}
-\geometry{a4paper, left=3cm, right=1cm, top=2cm, bottom=2cm}
-
-\newfontfamily{\lstfiramono}[Scale=0.8]{Fira Mono}
-\lstset{
-	basicstyle=\lstfiramono,
-	breakatwhitespace=false,
-	breaklines=true, % wrapping
-	keepspaces=true,
-	columns=fixed,
-	keywordstyle=\bfseries\color{green!40!black},
-	commentstyle=\itshape\color{purple!40!black},
-	identifierstyle=\color{blue},
-	stringstyle=\color{orange},
-	numbers=left,
-	numbersep=7pt,
-	numberstyle=\small\color{Gray!90},
-	showspaces=false,
-	showstringspaces=false,
-	showtabs=false,
-	tabsize=2
-}
-
-\newcommand{\InlineCode}[1]{\colorbox{Gray!25}
-{\lstinline[identifierstyle=\color{Red!80}]{#1}}}
 
 \begin{document}
 
@@ -51,7 +28,7 @@
 		КАФЕДРА КОМПЬЮТЕРНЫХ ТЕХНОЛОГИЙ И ПРОГРАММНОЙ ИНЖЕНЕРИИ
 	\end{center}
 
-	\vspace{2cm}
+	\vspace{1cm}
 	\begin{flushleft}
 		КУРСОВОЙ ПРОЕКТ \\
 		ЗАЩИЩЕН С ОЦЕНКОЙ \\
@@ -68,19 +45,19 @@
 
 	\begin{center}
 		\begin{tabular}{p{13cm}}
-			\vspace{8cm} \\
+			\vspace{2.5cm} \\
 			\begin{center}
 				ПОЯСНИТЕЛЬНАЯ ЗАПИСКА \\
 				К КУРСОВОМУ ПРОЕКТУ \\
-				\vspace{1cm}
+				\vspace{0.5cm}
 				ДИСПЕТЧЕР ЗАДАЧ \\
-				\vspace{1cm}
+				\vspace{0.5cm}
 				по дисциплине: ОПЕРАЦИОННЫЕ СИСТЕМЫ И СЕТИ
 			\end{center}
 		\end{tabular}
 	\end{center}
 
-	\vspace{4cm}
+	\vspace{2.5cm}
 	\begin{flushleft}
 		РАБОТУ ВЫПОЛНИЛ
 	\end{flushleft}
@@ -99,47 +76,165 @@
 	\end{center}
 \end{titlepage}
 
+\newpage
 
 \section{Цель работы}
-Знакомство с устройством ядра ОС Linux.
+
+\normalsize Цель работы: Знакомство с устройством ядра ОС Linux.
 Получение опыта разработки драйвера устройства.
 
+\section{Задание(5 вариант)}
 
-\section{Индивидуальное задание}
 Диспетчер задач. Реализовать демон для мониторинга использования
 блочных устройств. Необходимо в реальном времени отслеживать число 
 и размер операций чтения и записи для блочных устройств.
 
-
 \section{Техническая документация}
 \begin{enumerate}
 	\item Сборка проекта: \\
-		Необходимо перейти в корневой каталог репозитория и вызвать команду
-		\InlineCode{gcc daemon.c -o daemon.exe}. Демон будет скомпилирован.
+		Скачиваем файлы с репозитория на github при помощи команды: \begin{verbatim}
+	git clone https://github.com/gurianoff/IOstatistic/IOstatistic.git
+\end{verbatim} 
 	\item Запуск проекта: \\
-		После того, как демон скомпилирован, его необходимо загрузить,
-		для этого надо воспользоваться командой \InlineCode{./daemon.exe}.
-	\item Использование демона: \\
-		Демон каждые 5 секунд обновляет информацию на экране.
-		Информация состоит из имени устройства, данных о количестве операций
-		чтения и записи, и данных о количестве считанных секторов.
-		Также приведено уточнение, что сектор состоит из 512 байт.
-	\item Выключение проекта: \\
-		Выключение демона осуществялется командой \InlineCode{^C}, 
-		либо уничтожением процесса командой  \InlineCode{kill pid}.
+	Шаг 1: Необходимо перейти в корневой каталог репозитория и вызвать команду: \begin{verbatim} gcc daemon.c -o daemon.exe
+\end{verbatim}  Демон будет скомпилирован.
+	 \\
+	Шаг 2: После того, как демон скомпилирован, его необходимо загрузить,
+		для этого надо воспользоваться командой: \begin{verbatim} ./daemon.exe 
+\end{verbatim}
+	Шаг 3: Демон каждые 5 секунд обновляет информацию на экране. 
+		Информация состоит из имени устройства, данных о количестве 
+		операций чтения и записи, и данных о количестве считанных 
+		секторов. Также приведено уточнение, что сектор состоит из 512 байт.
+	 \\
+	Шаг 4: Выключение демона осуществляется командой \begin{verbatim}^C\end{verbatim}, либо уничтожением процесса командой  \begin{verbatim}kill pid\end{verbatim}
 \end{enumerate}
-
+\newpage
 
 \section{Выводы}
 В ходе курсового проекта была изучена реализация демонов и способы
 получения информации об использовании блочных устройств. 
 В последствии демон был реализован на языке C. Полученный
 результат удовлетворяет всем поставленным целям данного проекта.
-
-
 \newpage
 \section{Приложение}
-Исходный текст мдемона для Linux:
-\lstinputlisting[language=C]{../daemon.c}
+\begin{verbatim}
+daemon.c:
 
-\end{document}
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <unistd.h>
+#include <syslog.h>
+#include <string.h>
+
+#define DISKSTATS_FILE "/proc/diskstats"
+
+void clrscr(void);
+
+int main(void) {
+
+  /* Наши ID процесса и сессии */
+  pid_t pid, sid;
+
+  /* Ответвляемся от родительского процесса */
+  pid = fork();
+  if (pid < 0) {
+    exit(EXIT_FAILURE);
+  }
+  /* Если с PID'ом все получилось, то родительский процесс можно завершить. */
+  if (pid > 0) {
+      clrscr();
+    while(1) {	
+	printf("%8s","NameDev");
+	printf("%8s", "NumRe");/*kol-vo*/	
+	printf("%8s", "SecRe");/*razmer*/
+	printf("%8s", "NumWr");/*kol-vo*/	
+	printf("%8s \n", "SecWr");/*razmer*/
+      	struct device {
+		int majorNumber;
+		int minorNumber;
+		char deviceName[6];
+		int readsCompletedSuccessfully;
+		int readsMerged;
+		int sectorsRead;
+		int timeSpentReading;
+		int writesCompleted;
+		int writesMerged;
+		int sectorsWritten;
+		int timeSpentWriting;
+		int IOsCurrentlyInProgress;
+		int timeSpentDoingIOs;
+		int weightedTimeSpentDoingIOs;	
+	};
+	FILE * file = fopen(DISKSTATS_FILE,"r");
+	FILE * fileCopy = fopen(DISKSTATS_FILE,"r");
+	int lines_count = 0;
+	//s4itaem kol-vo strok
+	if (file==NULL)
+		printf("Trouble of reading file!");
+	else {
+	while(!feof(file))
+	{
+		if(fgetc(file)=='\n')
+			lines_count++;
+	}
+	lines_count++;
+        fclose(file);	
+	//kajdaia stroka iz faila eto structura soderjawaia polia
+	struct device block[lines_count];
+	char i=0;
+	while(fscanf (fileCopy, "%d%d%s%d%d%d%d%d%d%d%d%d%d%d", &(block[i].majorNumber), &(block[i].minorNumber), block[i].deviceName, &(block[i].readsCompletedSuccessfully), &(block[i].readsMerged), &(block[i].sectorsRead), &(block[i].timeSpentReading), &(block[i].writesCompleted),  &(block[i].writesMerged), &(block[i].sectorsWritten), &(block[i].timeSpentWriting), &(block[i].IOsCurrentlyInProgress), &(block[i].timeSpentDoingIOs), &(block[i].weightedTimeSpentDoingIOs)) != EOF) {
+		
+	//if(block[i].majorNumber==11){//comment this line you need all devices
+	printf("%6s %8d %8d %6d %6d \n", block[i].deviceName, block[i].readsCompletedSuccessfully, block[i].sectorsRead, block[i].writesCompleted, block[i].sectorsWritten);
+//}//comment this line you need all devices
+		i++;
+	}
+      fclose(fileCopy);
+	printf("\n");
+	printf("Note: Program shows you the number of hits and the number of used sectors.\n");
+	printf("One sector is 512 bytes\n");
+      sleep(5);
+      clrscr();
+     }
+    }
+    exit(1);
+  }
+
+  /* Изменяем файловую маску */
+  umask(0);
+
+  /* Здесь можно открывать любые журналы */       
+  /* Создание нового SID для дочернего процесса */
+  sid = setsid();
+  if (sid < 0) {
+    /* Журналируем любой сбой */
+    exit(EXIT_FAILURE);
+  }
+
+  /* Изменяем текущий рабочий каталог */
+  if ((chdir("/")) < 0) {
+    /* Журналируем любой сбой */
+    exit(EXIT_FAILURE);
+  }
+
+  /* Закрываем стандартные файловые дескрипторы */
+  close(STDIN_FILENO);
+  close(STDOUT_FILENO);
+  close(STDERR_FILENO);
+
+  exit(EXIT_SUCCESS);
+}
+
+void clrscr(void){
+	printf("\033[2J"); /*clear the entire screen*/
+	printf("\033[0;0f"); /*Move cursor to the top*/
+}
+\end{verbatim}
+\end{document} 
+\grid
+\grid
