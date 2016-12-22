@@ -1,0 +1,145 @@
+% vim: set fenc=utf-8 ts=2 sw=2 sts=2 noet foldmethod=indent:
+\documentclass[a4paper,12pt]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{listings}
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{FiraMono}
+\usepackage{fontspec}
+\setmainfont{Liberation Serif}
+
+\usepackage{geometry}
+\geometry{a4paper, left=3cm, right=1cm, top=2cm, bottom=2cm}
+
+\newfontfamily{\lstfiramono}[Scale=0.8]{Fira Mono}
+\lstset{
+	basicstyle=\lstfiramono,
+	breakatwhitespace=false,
+	breaklines=true, % wrapping
+	keepspaces=true,
+	columns=fixed,
+	keywordstyle=\bfseries\color{green!40!black},
+	commentstyle=\itshape\color{purple!40!black},
+	identifierstyle=\color{blue},
+	stringstyle=\color{orange},
+	numbers=left,
+	numbersep=7pt,
+	numberstyle=\small\color{Gray!90},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2
+}
+
+\newcommand{\InlineCode}[1]{\colorbox{Gray!25}
+{\lstinline[identifierstyle=\color{Red!80}]{#1}}}
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+		МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ РОССИЙСКОЙ ФЕДЕРАЦИИ
+		ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ АВТОНОМНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ
+		ВЫСШЕГО ОБРАЗОВАНИЯ
+		«САНКТ-ПЕТЕРБУРГСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ
+		АЭРОКОСМИЧЕСКОГО ПРИБОРОСТРОЕНИЯ» \\
+		\vspace{1cm}
+		КАФЕДРА КОМПЬЮТЕРНЫХ ТЕХНОЛОГИЙ И ПРОГРАММНОЙ ИНЖЕНЕРИИ
+	\end{center}
+
+	\vspace{2cm}
+	\begin{flushleft}
+		КУРСОВОЙ ПРОЕКТ \\
+		ЗАЩИЩЕН С ОЦЕНКОЙ \\
+		РУКОВОДИТЕЛЬ \\
+	\end{flushleft}
+
+	\begin{tabular}{p{4cm} p{0.5cm} p{4cm} p{0.5cm} p{4cm}}
+		\centering ст.преп. & & & & \hspace{0.9cm} Поляк М.Д. \\
+		\cline{1-1} \cline{3-3} \cline{5-5}
+		\centering \tiny{должность, уч. степень, звание} & &
+		\centering \tiny{подпись, дата} & &
+		\centering \tiny{инициалы, фамилия}
+	\end{tabular}
+
+	\begin{center}
+		\begin{tabular}{p{13cm}}
+			\vspace{8cm} \\
+			\begin{center}
+				ПОЯСНИТЕЛЬНАЯ ЗАПИСКА \\
+				К КУРСОВОМУ ПРОЕКТУ \\
+				\vspace{1cm}
+				ДИСПЕТЧЕР ЗАДАЧ \\
+				\vspace{1cm}
+				по дисциплине: ОПЕРАЦИОННЫЕ СИСТЕМЫ И СЕТИ
+			\end{center}
+		\end{tabular}
+	\end{center}
+
+	\vspace{4cm}
+	\begin{flushleft}
+		РАБОТУ ВЫПОЛНИЛ
+	\end{flushleft}
+
+	\begin{tabular}{p{3cm} p{1cm} p{0.5cm} p{3.5cm} p{0.5cm} p{3.5cm}}
+		СТУДЕНТ ГР. & 4331 & & & & {} \\
+		\cline{2-2} \cline{4-4} \cline{6-6}
+		& & & \centering \tiny{подпись, дата}
+		& & \centering \tiny{инициалы, фамилия}
+	\end{tabular}
+
+	\begin{center}
+		\vspace{1cm}
+		Санкт-Петербург \\
+		2016
+	\end{center}
+\end{titlepage}
+
+
+\section{Цель работы}
+Знакомство с устройством ядра ОС Linux.
+Получение опыта разработки драйвера устройства.
+
+
+\section{Индивидуальное задание}
+Диспетчер задач. Реализовать демон для мониторинга использования
+блочных устройств. Необходимо в реальном времени отслеживать число 
+и размер операций чтения и записи для блочных устройств.
+
+
+\section{Техническая документация}
+\begin{enumerate}
+	\item Сборка проекта: \\
+		Необходимо перейти в корневой каталог репозитория и вызвать команду
+		\InlineCode{gcc daemon.c -o daemon.exe}. Демон будет скомпилирован.
+	\item Запуск проекта: \\
+		После того, как демон скомпилирован, его необходимо загрузить,
+		для этого надо воспользоваться командой \InlineCode{./daemon.exe}.
+	\item Использование демона: \\
+		Демон каждые 5 секунд обновляет информацию на экране.
+		Информация состоит из имени устройства, данных о количестве операций
+		чтения и записи, и данных о количестве считанных секторов.
+		Также приведено уточнение, что сектор состоит из 512 байт.
+	\item Выключение проекта: \\
+		Выключение демона осуществялется командой \InlineCode{^C}, 
+		либо уничтожением процесса командой  \InlineCode{kill pid}.
+\end{enumerate}
+
+
+\section{Выводы}
+В ходе курсового проекта была изучена реализация демонов и способы
+получения информации об использовании блочных устройств. 
+В последствии демон был реализован на языке C. Полученный
+результат удовлетворяет всем поставленным целям данного проекта.
+
+
+\newpage
+\section{Приложение}
+Исходный текст мдемона для Linux:
+\lstinputlisting[language=C]{../daemon.c}
+
+\end{document}
