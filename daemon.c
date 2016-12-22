@@ -10,6 +10,8 @@
 
 #define DISKSTATS_FILE "/proc/diskstats"
 
+void clrscr(void);
+
 int main(void) {
 
   /* Наши ID процесса и сессии */
@@ -63,7 +65,10 @@ int main(void) {
 	struct device block[lines_count];
 	char i=0;
 	while(fscanf (fileCopy, "%d%d%s%d%d%d%d%d%d%d%d%d%d%d", &(block[i].majorNumber), &(block[i].minorNumber), block[i].deviceName, &(block[i].readsCompletedSuccessfully), &(block[i].readsMerged), &(block[i].sectorsRead), &(block[i].timeSpentReading), &(block[i].writesCompleted),  &(block[i].writesMerged), &(block[i].sectorsWritten), &(block[i].timeSpentWriting), &(block[i].IOsCurrentlyInProgress), &(block[i].timeSpentDoingIOs), &(block[i].weightedTimeSpentDoingIOs)) != EOF) {
-		printf("%6s %8d %8d %6d %6d \n", block[i].deviceName, block[i].readsCompletedSuccessfully, block[i].sectorsRead, block[i].writesCompleted, block[i].sectorsWritten);
+		
+	//if(block[i].majorNumber==11){//comment this line you need all devices
+	printf("%6s %8d %8d %6d %6d \n", block[i].deviceName, block[i].readsCompletedSuccessfully, block[i].sectorsRead, block[i].writesCompleted, block[i].sectorsWritten);
+//}//comment this line you need all devices
 		i++;
 	}
       fclose(fileCopy);
