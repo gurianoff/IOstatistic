@@ -22,8 +22,13 @@ int main(void) {
   }
   /* Если с PID'ом все получилось, то родительский процесс можно завершить. */
   if (pid > 0) {
-    printf("PID for that process: %d \n", pid);
+      clrscr();
     while(1) {	
+	printf("%8s","NameDev");
+	printf("%8s", "NumRe");/*kol-vo*/	
+	printf("%8s", "SecRe");/*razmer*/
+	printf("%8s", "NumWr");/*kol-vo*/	
+	printf("%8s \n", "SecWr");/*razmer*/
       	struct device {
 		int majorNumber;
 		int minorNumber;
@@ -58,11 +63,15 @@ int main(void) {
 	struct device block[lines_count];
 	char i=0;
 	while(fscanf (fileCopy, "%d%d%s%d%d%d%d%d%d%d%d%d%d%d", &(block[i].majorNumber), &(block[i].minorNumber), block[i].deviceName, &(block[i].readsCompletedSuccessfully), &(block[i].readsMerged), &(block[i].sectorsRead), &(block[i].timeSpentReading), &(block[i].writesCompleted),  &(block[i].writesMerged), &(block[i].sectorsWritten), &(block[i].timeSpentWriting), &(block[i].IOsCurrentlyInProgress), &(block[i].timeSpentDoingIOs), &(block[i].weightedTimeSpentDoingIOs)) != EOF) {
-		printf("%s %d %d \n", block[i].deviceName, block[i].readsCompletedSuccessfully, block[i].sectorsRead);
+		printf("%6s %8d %8d %6d %6d \n", block[i].deviceName, block[i].readsCompletedSuccessfully, block[i].sectorsRead, block[i].writesCompleted, block[i].sectorsWritten);
 		i++;
 	}
       fclose(fileCopy);
-      sleep(1);
+	printf("\n");
+	printf("Note: Program shows you the number of hits and the number of used sectors.\n");
+	printf("One sector is 512 bytes\n");
+      sleep(5);
+      clrscr();
      }
     }
     exit(1);
@@ -90,13 +99,10 @@ int main(void) {
   close(STDOUT_FILENO);
   close(STDERR_FILENO);
 
-  /* Специфичная для демона инициализация проходит тут */
-
-  /* Большой Цикл */
-  //while (1) {	printf("Suc");
-    /* Делаем здесь чего-нибудь ... */
-    //sleep(30); /* ждем 30 секунд */
-  //}
   exit(EXIT_SUCCESS);
 }
 
+void clrscr(void){
+	printf("\033[2J"); /*clear the entire screen*/
+	printf("\033[0;0f"); /*Move cursor to the top*/
+}
